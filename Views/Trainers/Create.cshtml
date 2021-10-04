@@ -1,0 +1,50 @@
+﻿@model KievGyms.Trainer
+
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h1>Add New Trainer</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TrainerFullName" class="control-label"></label>
+                <input asp-for="TrainerFullName" class="form-control" />
+                <span asp-validation-for="TrainerFullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrainerDateOfBirth" class="control-label"></label>
+                <input asp-for="TrainerDateOfBirth" class="form-control" />
+                <span asp-validation-for="TrainerDateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GymId" class="control-label"></label>
+                <select asp-for="GymId" class ="form-control" asp-items="ViewBag.GymId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrainerSalary" class="control-label"></label>
+                <input asp-for="TrainerSalary" class="form-control" />
+                <span asp-validation-for="TrainerSalary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpecializationId" class="control-label"></label>
+                <select asp-for="SpecializationId" class ="form-control" asp-items="ViewBag.SpecializationId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
