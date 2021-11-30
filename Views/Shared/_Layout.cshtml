@@ -24,9 +24,6 @@
                         <li class="nav-item active">
                             <a class="nav-link" asp-area="" asp-controller="Districts" asp-action="Index">Districts</a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" asp-area="" asp-controller="Trainers" asp-action="Index">Trainers</a>
-                        </li>
                         @if (User.IsInRole("admin"))
                         {
                             <li class="nav-item active">
@@ -37,16 +34,16 @@
                                 <a class="nav-link" asp-area="" asp-controller="GymMemberships" asp-action="Index">GymMemberships</a>
                             </li>
                         }
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-area="" asp-controller="Specializations" asp-action="Index">Specializations</a>
+                        </li>
+                        @if (User.IsInRole("admin"))
+                        {
                             <li class="nav-item active">
-                                <a class="nav-link" asp-area="" asp-controller="Specializations" asp-action="Index">Specializations</a>
+                                <a class="nav-link" asp-area="" asp-controller="Roles" asp-action="Index">Roles</a>
                             </li>
-                            @if (User.IsInRole("admin"))
-                            {
-                                <li class="nav-item active">
-                                    <a class="nav-link" asp-area="" asp-controller="Roles" asp-action="Index">Roles</a>
-                                </li>
-                            }
-                        </ul>
+                        }
+                    </ul>
                 </div>
             </div>
         </nav>

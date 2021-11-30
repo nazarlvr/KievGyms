@@ -17,12 +17,22 @@
             </div>
             <div class="form-group">
                 <label asp-for="DistrictId" class="control-label"></label>
-                <select asp-for="DistrictId" class ="form-control" asp-items="ViewBag.DistrictId"></select>
+                <select asp-for="DistrictId" class="form-control" asp-items="ViewBag.DistrictId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="GymInfo" class="control-label"></label>
                 <input asp-for="GymInfo" class="form-control" />
                 <span asp-validation-for="GymInfo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GeoLat" class="control-label" type="number" placeholder="1.0" step="0.00001"></label>
+                <input asp-for="GeoLat" class="form-control" type="number" placeholder="1.0" step="0.00001" />
+                <span asp-validation-for="GeoLat" class="text-danger" type="number" placeholder="1.0" step="0.00001"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GeoLong" class="control-label" type="number" placeholder="1.0" step="0.00001"></label>
+                <input asp-for="GeoLong" class="form-control" type="number" placeholder="1.0" step="0.00001"/>
+                <span asp-validation-for="GeoLong" class="text-danger" type="number" placeholder="1.0" step="0.00001"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

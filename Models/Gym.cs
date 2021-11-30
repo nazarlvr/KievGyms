@@ -22,6 +22,8 @@ namespace KievGyms
         [Required(ErrorMessage = "The field cannot be empty")]
         [Display(Name = "Information about Gym")]
         public string GymInfo { get; set; }
+        public double GeoLong { get; set; }
+        public double GeoLat { get; set; }
 
         public virtual District District { get; set; }
         public virtual ICollection<GymMembership> GymMemberships { get; set; }

@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<KievGyms.Trainer>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Trainers By Gyms";
 }
 
-<h1>Index</h1>
+<h1>Trainers of Gym @ViewBag.GymName</h1>
 
 <p>
     @if (User.IsInRole("admin"))
     {
-        <a asp-action="Create">Add New Trainer</a>
+        @Html.ActionLink("Add new trainer", "Add", new {gymId = @ViewBag.GymId })
     }
 </p>
 <table class="table">
@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.TrainerFullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TrainerDateOfBirth)
+                @Html.DisplayFor(modelItem => item.TrainerDateOfBirth.ToShortDateString())
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TrainerSalary)

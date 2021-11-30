@@ -42,7 +42,8 @@ namespace KievGyms.Controllers
                 return NotFound();
             }
 
-            return View(gym);
+            //return View(gym);
+            return RedirectToAction("Index", "Trainers", new { id = gym.GymId, name = gym.GymName});
         }
 
         // GET: Gyms/Create
@@ -57,7 +58,7 @@ namespace KievGyms.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GymId,GymName,DistrictId,GymInfo")] Gym gym)
+        public async Task<IActionResult> Create([Bind("GymId,GymName,DistrictId,GymInfo,GeoLat,GeoLong")] Gym gym)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +92,7 @@ namespace KievGyms.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("GymId,GymName,DistrictId,GymInfo")] Gym gym)
+        public async Task<IActionResult> Edit(int id, [Bind("GymId,GymName,DistrictId,GymInfo,GeoLat,GeoLong")] Gym gym)
         {
             if (id != gym.GymId)
             {

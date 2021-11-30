@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "KievGyms' Map";
+}
+
+<style>
+    #map 
+    {
+        height: 570px;
+        width: 1299px;
+    }
+</style>
+<div class="row">
+    <div id="map"></div>
+    <script>
+        let map;
+
+        function initMap()
+        {
+            map = new google.maps.Map(document.getElementById("map"),
+            {
+                center: { lat: 50.4596347, lng: 30.5210755 },
+                zoom: 10,
+            });
+
+            $.get("@Url.Action("GetData","GoogleMaps")", function (data, status)
+            {
+                console.log(data);
+                let marker = [];
+                let contentString = [];
+                let infoWindow = [];
+                for (var i = 0; i < data.length; ++i)
+                {
+                    marker[i] = new google.maps.Marker({
+                        position:
+                        {
+                           lat: data[i].geoLat, lng: data[i].geoLong
+                        }, map: map
+                    });
+                    contentString[i] = '<div> <h1>' + data[i].gymName + '</h1></div>';
+                    infoWindow[i] = new google.maps.InfoWindow({ content: contentString[i] });
+
+                    var markerValue = marker[i];
+                    google.maps.event.addListener(marker[i], 'mouseover', (function (markerValue, i)
+                    {
+                        return function ()
+                        {
+                            infoWindow[i].open(map, marker[i]);
+                        }
+                    }) (marker[i], i));
+                    google.maps.event.addListener(marker[i], 'mouseout', (function (markerValue, i)
+                    {
+                        return function ()
+                        {
+                            infoWindow[i].close();
+                        }
+                    })(marker[i], i));
+                }
+            })
+        }
+    </script>
+    <script async
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBx3NZnrKWwFIUdWU5tUwcD5N9R4J6rL9M&callback=initMap">
+    </script>
+</div>

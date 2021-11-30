@@ -19,10 +19,16 @@ namespace KievGyms.Controllers
         }
 
         // GET: Trainers
-        public async Task<IActionResult> Index()
-        { 
-            var gymDBContext = _context.Trainers.Include(t => t.Gym).Include(t => t.Specialization);
-            return View(await gymDBContext.ToListAsync());
+        public async Task<IActionResult> Index(int? id, string? name)
+        {
+            if (id == null) 
+            {
+                return RedirectToAction("Gyms", "Index") ;
+            }
+            ViewBag.GymId = id;
+            ViewBag.GymName = name;
+            var trainersbyGyms = _context.Trainers.Where(t => t.GymId == id).Include(t => t.Specialization).Include(g => g.Gym);
+            return View(await trainersbyGyms.ToListAsync());
         }
 
         // GET: Trainers/Details/5
@@ -46,9 +52,11 @@ namespace KievGyms.Controllers
         }
 
         // GET: Trainers/Create
-        public IActionResult Create()
+        public IActionResult Create(int gymId)
         {
-            ViewData["GymId"] = new SelectList(_context.Gyms, "GymId", "GymName");
+            ViewBag.GymId = gymId;
+            ViewBag.GymName = _context.Gyms.Where(g=>g.GymId==gymId).FirstOrDefault().GymName;
+            //ViewData["GymId"] = new SelectList(_context.Gyms, "GymId", "GymName");
             ViewData["SpecializationId"] = new SelectList(_context.Specializations, "SpecializationId", "SpecializationName");
             return View();
         }
@@ -58,17 +66,20 @@ namespace KievGyms.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TrainerId,TrainerFullName,TrainerDateOfBirth,GymId,TrainerSalary,SpecializationId")] Trainer trainer)
+        public async Task<IActionResult> Create(int gymId, [Bind("TrainerId,TrainerFullName,TrainerDateOfBirth,TrainerSalary,SpecializationId")] Trainer trainer)
         {
+            trainer.GymId = gymId;
             if (ModelState.IsValid)
             {
                 _context.Add(trainer);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Gyms", new {id = gymId, name = _context.Gyms.Where(g => g.GymId == gymId).FirstOrDefault().GymName});
             }
-            ViewData["GymId"] = new SelectList(_context.Gyms, "GymId", "GymInfo", trainer.GymId);
+            //ViewData["GymId"] = new SelectList(_context.Gyms, "GymId", "GymInfo", trainer.GymId);
             ViewData["SpecializationId"] = new SelectList(_context.Specializations, "SpecializationId", "SpecializationName", trainer.SpecializationId);
-            return View(trainer);
+            //return View(trainer);
+            return RedirectToAction("Index", "Gyms", new { id = gymId, name = _context.Gyms.Where(g => g.GymId == gymId).FirstOrDefault().GymName });
         }
 
         // GET: Trainers/Edit/5

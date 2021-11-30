@@ -19,6 +19,8 @@ namespace KievGyms
         public string ClientFullName { get; set; }
         [Required(ErrorMessage = "The field cannot be empty")]
         [Display(Name = "Date of birth")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",
+               ApplyFormatInEditMode = true)]
         public DateTime ClientDateOfBirth { get; set; }
         [Required(ErrorMessage = "The field cannot be empty")]
         [Display(Name = "Phone number")]

@@ -24,33 +24,55 @@
             <th>
                 @Html.DisplayNameFor(model => model.District)
             </th>
+            @if (User.IsInRole("admin"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.GeoLat)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GeoLong)
+                </th>
+            }
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.GymName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GymInfo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.District.DistrictName)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GymName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GymInfo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.District.DistrictName)
+                </td>
                 @if (User.IsInRole("admin"))
                 {
-                    <a asp-action="Edit" asp-route-id="@item.GymId">Edit</a> <h>|</h>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GeoLat)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GeoLong)
+                    </td>
                 }
-                <a asp-action="Details" asp-route-id="@item.GymId">Details</a>
-                @if (User.IsInRole("admin"))
-                {
-                    <h>|</h> <a asp-action="Delete" asp-route-id="@item.GymId">Delete</a>
-                }
-            </td>
-        </tr>
-}
+                <td>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.GymId">Edit</a> <h>|</h>
+                    }
+                    <a asp-action="Details" asp-route-id="@item.GymId">List of trainers</a>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <h>|</h> <a asp-action="Delete" asp-route-id="@item.GymId">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<a href='@Url.Action("Index", "GoogleMaps")'> <h1 align="center">Google Maps of Gyms</h1></a>
+

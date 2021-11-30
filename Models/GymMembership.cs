@@ -19,6 +19,8 @@ namespace KievGyms
         public string GymMembershipInfo { get; set; }
         [Required(ErrorMessage = "The field cannot be empty")]
         [Display(Name = "Expiration date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",
+               ApplyFormatInEditMode = true)]
         public DateTime GymMembershipExpiryDate { get; set; }
 
         public virtual Client Client { get; set; }

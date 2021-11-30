@@ -14,6 +14,8 @@ namespace KievGyms
         public string TrainerFullName { get; set; }
         [Required(ErrorMessage = "The field cannot be empty")]
         [Display(Name = "Date of birth")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",
+               ApplyFormatInEditMode = true)]
         public DateTime TrainerDateOfBirth { get; set; }
         [Display(Name = "Gym Name")]
         public int GymId { get; set; }
